@@ -1,7 +1,7 @@
 {
      "name" : "HelloSeaJS",
      "version" : "1.0.0",
-     "author" : "Qifeng Liu",
+     "author" : "Navy",
      "devDependencies" : {
           "grunt" : "0.4.1",
           "grunt-contrib-jshint": "~0.7.2",
