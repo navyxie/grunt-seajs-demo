@@ -1,17 +1,24 @@
 //http://hi.baidu.com/liuda101/item/54bcf8d0b6a65602d68ed057
 module.exports = function(grunt){
-    
      grunt.initConfig({
+          pkg: grunt.file.readJSON("package.json"),
           transport : {
                options : {
-                    format : 'application/dist/{{filename}}'  //生成的id的格式
+                    paths: ['.'],  
+                    alias: '<%= pkg.spm.alias %>'                                 
                },
                application : {
+                    options:{
+                         idleading: "appjs/",
+                         relative:true
+                    },
                     files:[{
                          expand:true,
                          cwd:'application',
-                         src:['application.js','util.js'],
-                         dest:'.build',
+                         src:['**/*.js'],
+                         dest:'.build/',
+                         filter: 'isFile',
+                         nonull: true,
                          ext : '.js'
                     }]
                }
@@ -19,19 +26,30 @@ module.exports = function(grunt){
           concat : {
                main : {
                     options : {
-                         relative : true
+                         paths: ['.'],
+                         include: 'relative'
                     },
-                    files : {
-                         'dist/application.js' : ['.build/util.js','.build/application.js'],  // 合并.build/application.js文件到dist/application.js中
-                         'dist/application-debug.js' : ['.build/util-debug.js','.build/application-debug.js']
-                    }
+                    files: [{
+                         expand: true,
+                         cwd: '.build/',
+                         src: ['**/*.js'],
+                         dest: 'appjs/',
+                         ext: '.js'
+                    }]
                }
           },
           uglify : {
                main : {
-                    files : {
-                         'dist/application.js' : ['dist/application.js'] //对dist/application.js进行压缩，之后存入dist/application.js文件
-                    }
+                    options: {
+                         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> <%= pkg.author %> */\n'
+                    },
+                    files: [{
+                         expand: true,
+                         cwd: "appjs",
+                         src: ["**/*.js", '!**/*-debug.js'],
+                         dest: 'appjs/',
+                         ext: '.js'
+                    }]
                }
           },
           clean : {
@@ -44,5 +62,5 @@ module.exports = function(grunt){
      grunt.loadNpmTasks('grunt-contrib-uglify');
      grunt.loadNpmTasks('grunt-contrib-clean');
     
-     grunt.registerTask('build',['transport','concat','uglify'])
+     grunt.registerTask('build',['transport','concat','uglify','clean'])
 };

@@ -7,13 +7,28 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="Description" content="潮百搭" />
     <title>潮百搭</title>
+    <style type="text/css">
+    html,body,h1{
+        padding:0px;
+        margin:0px;
+        font-size:14px;
+    }
+    #hello-seajs{
+        -webkit-transition:color 1.5s ease;
+        -o-transition:color 1.5s ease;
+        -moz-transition:color 1.5s ease;
+        transition:color 1.5s ease;
+        font-size:12em;
+        text-align:center;
+    }
+    </style>
 </head>
 <body>
 	<div id="hello-seajs">hello-seajs</div>
-    <script src="./scripts/seajs/sea.js"></script>
+    <script src="./seajs/sea.js"></script>
     <script>
-    	seajs.use('./application/application');
-    	// seajs.use('./dist/application');
+    	// seajs.use('./application/application');
+    	seajs.use('./appjs/application');
     </script> 
 </body>
 </html>
