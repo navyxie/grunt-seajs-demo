@@ -10,6 +10,6 @@ define(function(require,exports,module){
      var $ = require('jquery');
      $(function(){
         console.log(111111);
-     })
+     });
      console.log($);
 });
